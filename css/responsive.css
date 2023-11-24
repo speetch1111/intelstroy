@@ -647,6 +647,10 @@
 
 
 @media (max-width: 650px) {
+    .brands__list {
+        margin: -4px;
+    }
+    
     .products__slider {
         display: flex;
         flex-wrap: wrap;
