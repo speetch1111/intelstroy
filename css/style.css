@@ -129,6 +129,7 @@ body {
 
 footer {
   margin-top: auto;
+  
 }
 
 @font-face {
@@ -246,13 +247,6 @@ footer {
   z-index: 999;
   top: 0;
   left: 0;
-  height: 60px;
-}
-
-.header.scroll .header__bottom {
-  opacity: 0;
-  pointer-events: none;
-  transform: rotateX(-90deg);
 }
 
 .header__top {
@@ -271,9 +265,10 @@ footer {
 .menu__list {
   display: flex;
   gap: 50px;
-
+  
 }
-.menu__item {
+.menu__item.active > a {
+  text-decoration: underline;
 }
 .menu__link {
   color: #fff;
@@ -282,17 +277,13 @@ footer {
   transition: .3s;
 }
 
-.menu__item {
-}
-.menu__link {
-}
 
-.menu__parent {
+.menu__parent span{
   padding-right: 20px;
   position: relative;
 }
 
-.menu__parent::after {
+.menu__parent span::after {
   content: '';
   position: absolute;
   right: 0px;
@@ -306,7 +297,7 @@ footer {
   transition: .3s;
 }
 
-.menu__parent.active::after {
+.menu__parent.active span::after {
   transform: rotate(180deg);
 }
 
@@ -415,7 +406,15 @@ footer {
 
 
 
-.mobile__hamburger {
+.mobile__hamburger,
+.mobile__visible,
+.mobile__menu-close,
+.mobile__social,
+.mob__catalog-search,
+.mob__catalog-filter, 
+.mob__catalog-sort,
+.catalog__mobile-sort,
+.catalog__tags-title {
   display: none;
 }
 
@@ -467,6 +466,7 @@ footer {
   transition: .6s;
   transform-origin: 0 0;
   border-bottom: 1px solid rgba(0, 60, 120, 0.06);
+  background-color: #FFFFFF;
 }
 
 .header__bottom-flex {
@@ -479,6 +479,13 @@ footer {
   flex-shrink: 0;
   margin-right: 60px;
 }
+
+.mobile__search,
+.mobile__search-close,
+.mobile__icon {
+  display: none;
+}
+
 .header__search {
   max-width: 360px;
   width: 100%;
@@ -564,9 +571,14 @@ footer {
   width: 29px;
   height: 29px;
   fill: transparent;
+  stroke: #212737;
   transition: .3s;
 }
 
+
+.mob__white {
+  fill: #212737;
+}
 
 .header__basket-icon {
   position: absolute;
@@ -588,6 +600,7 @@ footer {
   border-radius: 50%;
   right: -8px;
   top: -7px;
+  line-height: 1;
 }
 .counter__text {
   display: block;
@@ -625,7 +638,6 @@ footer {
 }
 .btns__wrap {
   display: flex;
-  flex-wrap: wrap;
   gap: 18px;
 }
 
@@ -679,7 +691,8 @@ footer {
   right: -122px;
 }
 
-.intro__slider .slick-dots {
+.intro__slider .slick-dots,
+.product__gallery-for .slick-dots {
   font-size: 0;
   line-height: 0;
   display: flex;
@@ -691,7 +704,16 @@ footer {
   bottom: -100px;
 }
 
-.intro__slider .slick-dots li {
+.product__gallery-for .slick-dots {
+  gap: 6px;
+}
+
+.product__gallery-for .slick-dots {
+  bottom: 10px;
+}
+
+.intro__slider .slick-dots li,
+.product__gallery-for .slick-dots li  {
     width: 49px;
     height: 2px;
     background-color: #fff;
@@ -699,7 +721,14 @@ footer {
     cursor: pointer;
 }
 
-.intro__slider .slick-dots li.slick-active {
+.product__gallery-for .slick-dots li  {
+  width: 16px;
+  height: 2px;
+  background-color: #D9D9D9;
+}
+
+.intro__slider .slick-dots li.slick-active,
+.product__gallery-for .slick-dots li.slick-active {
   background-color: #1064F4;
 }
 
@@ -793,6 +822,7 @@ footer {
 
 .material__item-wrap.exclusive .material__item-title  {
   max-width: 400px;
+  z-index: 1;
 }
 
 .material__more-text {
@@ -1150,7 +1180,7 @@ footer {
 }
 .footer__phone,
 .footer__address {
-  color: #FFF;
+  color: #f2f2f6;
   font-family: 'ALS Hauss';
   font-size: 16px;
   margin-bottom: 14px;
@@ -1177,7 +1207,7 @@ footer {
   max-width: 205px;
 }
 .footer__nav-title {
-  color: #fff;
+  color: #f2f2f6;
   font-size: 16px;
   margin-bottom: 14px;
 }
@@ -1187,9 +1217,10 @@ footer {
 }
 
 .footer__nav-list a {
-  color: #FFF;
+  color: #f2f2f6;
   font-family: 'ALS Hauss';
   font-size: 14px;
+  font-weight: 300;
 }
 .footer__bottom {
   margin-top: 50px;
@@ -1201,6 +1232,7 @@ footer {
   font-size: 14px;
   opacity: 0.61;
   font-weight: 400;
+  font-family: 'ALS Hauss';
 }
 
 .page__top {
@@ -1418,6 +1450,11 @@ section.pt0 {
   display: flex;
   align-items: center;
 }
+
+.team__item:not(:last-of-type) {
+  margin-bottom: 30px;
+}
+
 .team__item-avatar {
   width: 72px;
   flex-shrink: 0;
@@ -1491,10 +1528,6 @@ section.pt0 {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-}
-
-.catalog__filter.open .catalog__filter-header::after {
-  background-image: url(../images/burger-close.svg);
 }
 
 
@@ -1724,10 +1757,6 @@ section.pt0 {
   align-items: center;
 }
 
-.mob__filter {
-  display: none;
-}
-
 .catalog__tags {
   display: flex;
   flex-wrap: wrap;
@@ -1841,7 +1870,6 @@ section.pt0 {
   color: #212737;
   font-family: 'ALS Hauss';
   font-size: 16px;
-  font-weight: 700;
 }
 
 .product-card__char-row span {
@@ -2168,4 +2196,26 @@ font-size: 22px;
 font-style: normal;
 font-weight: 500;
 line-height: normal;
+}
+
+.shadow__block {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .4);
+  z-index: 99999;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+}
+
+.shadow__block.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.catalog__filter-submit {
+  display: none;
 }
